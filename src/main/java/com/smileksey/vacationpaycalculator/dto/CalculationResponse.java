@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 
 public class CalculationResponse {
     private String message;
-    private BigDecimal calculationResult;
+    private BigDecimal paymentValue;
 
     public CalculationResponse() {
     }
 
     public CalculationResponse(String message, BigDecimal calculationResult) {
         this.message = message;
-        this.calculationResult = calculationResult;
+        this.paymentValue = calculationResult;
     }
 
     public String getMessage() {
@@ -22,11 +22,11 @@ public class CalculationResponse {
         this.message = message;
     }
 
-    public BigDecimal getCalculationResult() {
-        return calculationResult;
+    public BigDecimal getPaymentValue() {
+        return paymentValue;
     }
 
-    public void setCalculationResult(BigDecimal calculationResult) {
-        this.calculationResult = calculationResult;
+    public void setPaymentValue(BigDecimal paymentValue) {
+        this.paymentValue = paymentValue;
     }
 }

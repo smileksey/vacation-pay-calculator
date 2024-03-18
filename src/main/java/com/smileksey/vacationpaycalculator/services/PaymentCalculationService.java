@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 
 public interface PaymentCalculationService {
 
-    public CalculationResponse getVacationPayment(BigDecimal averageSalary, int amountOfDays);
+    CalculationResponse getVacationPayment(BigDecimal averageSalary, int amountOfDays);
+
+    int getAmountOfPaidDays(LocalDate dateOfStart, int amountOfDays);
 
 }
