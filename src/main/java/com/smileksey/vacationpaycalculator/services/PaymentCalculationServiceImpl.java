@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,8 +16,16 @@ import java.util.stream.Stream;
 public class PaymentCalculationServiceImpl implements PaymentCalculationService {
 
     private final static Logger logger = LogManager.getLogger(PaymentCalculationServiceImpl.class);
+    /** Среднее количество дней в месяце */
     private static final double AVERAGE_AMOUNT_OF_DAYS_IN_MONTH = 29.3;
 
+
+    /**
+     * Метод для расчета суммы отпускных выплат
+     * @param averageSalary - среднемесячная зарплата работника за 12 месяцев
+     * @param amountOfDays  - количество дней отпуска
+     * @return возвращает сумму отпускных выплат
+     */
     @Override
     public CalculationResponse getVacationPayment(BigDecimal averageSalary, int amountOfDays) {
 
@@ -31,10 +37,17 @@ public class PaymentCalculationServiceImpl implements PaymentCalculationService 
         BigDecimal paymentValue = averageSalaryPerDay.multiply(BigDecimal.valueOf(amountOfDays));
         logger.info("Отпускные выплаты составляют {}", paymentValue);
 
-        return new CalculationResponse("Размер отпускных выплат", paymentValue);
+        return new CalculationResponse(paymentValue);
     }
 
-    //обычные выходные не учитываем, т.к. отпуск берется по календарным дням
+
+    /**
+     * Метод для расчета количества оплачиваемых дней отпуска с учетом государственных праздников, выпадающих на период отпуска.
+     * Обычные выходные дни (сб, вс) не учитываются, т.к. согласно ТК оплачиваются в обычном порядке наравне с будними
+     * @param dateOfStart   - дата начала отпуска
+     * @param amountOfDays  - количество дней отпуска
+     * @return количество оплачиваемых дней отпуска
+     */
     public int getAmountOfPaidDays(LocalDate dateOfStart, int amountOfDays) {
 
         List<LocalDate> paidDays = Stream
@@ -48,6 +61,11 @@ public class PaymentCalculationServiceImpl implements PaymentCalculationService 
         return paidDays.size();
     }
 
+
+    /**
+     * Метод для получения списка дат государственных праздников
+     * @return список дат государственных праздников
+     */
     private List<LocalDate> getListOfHolidays() {
 
         int currentYear = LocalDate.now().getYear();

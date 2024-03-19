@@ -2,7 +2,6 @@ package com.smileksey.vacationpaycalculator.controllers;
 
 import com.smileksey.vacationpaycalculator.dto.CalculationResponse;
 import com.smileksey.vacationpaycalculator.services.PaymentCalculationService;
-import com.smileksey.vacationpaycalculator.services.PaymentCalculationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,16 +24,15 @@ public class PaymentCalculationController {
         this.paymentCalculationService = paymentCalculationService;
     }
 
-
     @GetMapping
     public CalculationResponse getCalculatedPayment(@RequestParam("avgSalary") BigDecimal averageSalary,
-                                                    @RequestParam("days") int vacationDaysAmount,
+                                                    @RequestParam("days") int amountOfDays,
                                                     @RequestParam("dateOfStart") @DateTimeFormat(pattern = "dd-MM-yyyy") Optional<LocalDate> dateOfStart) {
 
         if (dateOfStart.isPresent()) {
-            vacationDaysAmount = paymentCalculationService.getAmountOfPaidDays(dateOfStart.get(), vacationDaysAmount);
+            amountOfDays = paymentCalculationService.getAmountOfPaidDays(dateOfStart.get(), amountOfDays);
         }
 
-        return paymentCalculationService.getVacationPayment(averageSalary, vacationDaysAmount);
+        return paymentCalculationService.getVacationPayment(averageSalary, amountOfDays);
     }
 }
