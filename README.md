@@ -12,6 +12,8 @@
 
    **(GET)** http://localhost:8080/calculate?avgSalary=80000&days=14
 
+    Ответ:
+
     ```json
     {
         "paymentValue": 38225.32
@@ -20,9 +22,12 @@
 
     ![screen](https://github.com/smileksey/vacation-pay-calculator/blob/master/src/main/resources/postman1.jpg?raw=true)
 
-2. Запрос для расчета количества оплачиваемых дней отпуска с учетом государственных праздников, выпадающих на период отпуска. Дополнительно указывается дата начала отпуска в формате "dd-MM-yyyy".
+3. Запрос для расчета количества оплачиваемых дней отпуска с учетом государственных праздников, выпадающих на период отпуска. Дополнительно указывается дата начала отпуска в формате "dd-MM-yyyy".
 
    **(GET)** http://localhost:8080/calculate?avgSalary=80000&days=14&dateOfStart=01-03-2024
+
+   Ответ:
+   
     ```json
     {
         "paymentValue": 35494.94
