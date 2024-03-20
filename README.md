@@ -35,4 +35,10 @@
     ```
     
     ![screen](https://github.com/smileksey/vacation-pay-calculator/blob/master/src/main/resources/postman2.jpg?raw=true)
+
+   ---
+
+   ### Docker image:
+
+   https://hub.docker.com/r/smileksey/payment-calculator
     
